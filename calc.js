@@ -1,7 +1,7 @@
 const numsBtn = document.querySelectorAll('[data-num]')
 const operationBtn = document.querySelectorAll('[data-operation]')
-const clearAllBtn = document.querySelector('.allclear')
-const clearBtn = document.querySelector('.clear')
+const clearAllBtn = document.querySelector('[data-allclear]')
+const clearBtn = document.querySelector('[data-clear]')
 const equalBtn = document.querySelector('[data-equal]')
 const dataOutput = document.querySelector('[data-output]')
 
@@ -10,17 +10,14 @@ let currentNum = ''
 let oper = ''
 let calcNumbers = ''
 
-function addNumber(num){
-    if(num === '.' && currentNum.includes('.')) return
+function addNumber(num) {
+    if (num === '.' && currentNum.includes('.')) return
     currentNum = currentNum + num
-    console.log(num)
 }
 
-function addOperation(operation){
-    console.log(operation)
-    dataOutput.textContent = operation.innerText
-    if(currentNum === '') return
-    if(prevNum !== ''){
+function addOperation(operation) {
+    if (currentNum === '') return
+    if (prevNum !== '') {
         calcMath()
     }
     oper = operation
@@ -28,71 +25,70 @@ function addOperation(operation){
     currentNum = ''
 }
 
-function clearAllDisplay(){
+function clearAllDisplay() {
     currentNum = ''
     prevNum = ''
     oper = undefined
 }
 
-function clearLastNum(){
-    currentNum = currentNum.slice(0,-1)
+function clearLastNum() {
+    currentNum = currentNum.slice(0, -1)
 }
 
-function calcMath(){
+function calcMath() {
     let calculation
     const prev = parseFloat(prevNum)
     const current = parseFloat(currentNum)
-    if (isNaN(prev) || isNaN(current)) return
-      switch (oper) {
+    switch (oper) {
         case '+':
-          calculation = prev + current
-          break
+            calculation = prev + current
+            break
         case '-':
-          calculation = prev - current
-          break
+            calculation = prev - current
+            break
         case '*':
-          calculation = prev * current
-          break
-        case '÷':
-          calculation = prev / current
-          break
+            calculation = prev * current
+            break
+        case '/':
+            calculation = prev / current
+            break
         default:
-          return
-      }
-      currentNum = calculation
-      oper = undefined
-      prevNum = ''
+            return
+    }
+    currentNum = calculation
+    oper = undefined
+    prevNum = ''
 }
 
-function displayDigits(){
+function displayDigits() {
     dataOutput.textContent = currentNum
 }
 
-numsBtn.forEach(btn =>{
-    btn.addEventListener('click', () =>{
+numsBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
         addNumber(btn.textContent)
         displayDigits()
     })
 })
 
-operationBtn.forEach(btn =>{
-    btn.addEventListener('click', () =>{
+operationBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
         addOperation(btn.textContent)
         displayDigits()
     })
 })
 
-equalBtn.addEventListener('click', () =>{
+equalBtn.addEventListener('click', () => {
     calcMath()
     displayDigits()
 })
 
-clearAllBtn.addEventListener('click', () =>{
+clearAllBtn.addEventListener('click', () => {
     clearAllDisplay()
     displayDigits()
 })
 
-clearBtn.addEventListener('click', () =>{
+clearBtn.addEventListener('click', () => {
     clearLastNum()
     displayDigits()
 })

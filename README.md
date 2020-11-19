@@ -14,7 +14,7 @@
 
 ## Status
 
-> project version: 1.0
+> project version: 2.0
 
 First try with my knowledge about html/css, but main focus on javascript.
 
